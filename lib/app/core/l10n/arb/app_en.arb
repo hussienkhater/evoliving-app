@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+    "settings": "Settings",
+    "changePassword": "Change Password",
+    "notifications": "Notifications",
+    "units": "Units",
+    "technicalSupport": "Technical Support",
+    "aboutapp": "About App",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "language": "Language",
+    "profile": "Profile",
+    "logout": "Logout"
+
+}

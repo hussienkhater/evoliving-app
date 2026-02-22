@@ -1,0 +1,19 @@
+// ignore_for_file: inference_failure_on_untyped_parameter
+
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evoliving/app/core/models/generic_exception.dart';
+
+mixin FirestoreHelper {
+  Future<T> firestoreOperationHandler<T>(
+      Future<T> Function() firestoreOperation) async {
+    try {
+      return await firestoreOperation();
+    } on FirebaseException catch (e) {
+      throw BusinessException(code: e.code, message: e.message);
+    } catch (e) {
+      throw NetworkException.unkown();
+    }
+  }
+}
