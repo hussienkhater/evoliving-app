@@ -62,6 +62,8 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/weather.png
   AssetGenImage get weather => const AssetGenImage('assets/images/weather.png');
+  /// File path: assets/images/Header_Background.png
+  AssetGenImage get headerBackground => const AssetGenImage('assets/images/Header_Background.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [
@@ -81,6 +83,7 @@ class $AssetsImagesGen {
     speaker,
     splashScreen,
     weather,
+    headerBackground,
   ];
 }
 
@@ -132,6 +135,15 @@ class $AssetsSvgsGen {
   /// file path: assets/svgs/change_photo.svg
   SvgGenImage get changePhoto => const SvgGenImage('assets/svgs/change_photo.svg');
 
+  /// File path: assets/svgs/alexa.svg
+  SvgGenImage get alexa => const SvgGenImage('assets/svgs/alexa.svg');
+
+  /// File path: assets/svgs/google_assistant.svg
+  SvgGenImage get googleAssistant => const SvgGenImage('assets/svgs/google_assistant.svg');
+
+  /// File path: assets/svgs/smart_thing.svg
+  SvgGenImage get smartThing => const SvgGenImage('assets/svgs/smart_thing.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     photo1,
@@ -149,6 +161,9 @@ class $AssetsSvgsGen {
     speaker,
     vector,
     changePhoto,
+    alexa,
+    googleAssistant,
+    smartThing,
   ];
 }
 
