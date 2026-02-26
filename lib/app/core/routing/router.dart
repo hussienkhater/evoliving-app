@@ -1,3 +1,4 @@
+import 'package:evoliving/app/features/profile/presentation/profile.dart';
 import 'package:evoliving/app/features/settings/sub_features/personal_information/presentation/personal_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -145,141 +146,80 @@ final appRouter = GoRouter(
               ),
             ]),
 
-        // Settings branch
         StatefulShellBranch(
-          navigatorKey: _shellNavigatorSettingsKey,
+  navigatorKey: _shellNavigatorProfileKey,
+  routes: [
+    GoRoute(
+      name: ProfileScreen.name,
+      path: '/${ProfileScreen.name}',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: ProfileScreen(),
+      ),
+      routes: [
+        GoRoute(
+          name: SettingsScreen.name,
+          path: SettingsScreen.name, // مهم تشيل /
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: const SettingsScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            ),
+          ),
           routes: [
             GoRoute(
-              name: SettingsScreen.name,
-              path: '/${SettingsScreen.name}',
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: SettingsScreen(),
-              ),
-              routes: [
-                // Child routes of Settings
-                GoRoute(
-                  name: PersonalInformationScreen.name,
-                  path: PersonalInformationScreen.name,
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const PersonalInformationScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                ),
-                GoRoute(
-                  name: AboutScreen.name,
-                  path: AboutScreen.name,
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const AboutScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                ),
-                GoRoute(
-                  name: DarkModeScreen.name,
-                  path: DarkModeScreen.name,
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const DarkModeScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                ),
-                GoRoute(
-                  name: LanguageSelectionScreen.name,
-                  path: LanguageSelectionScreen.name,
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const LanguageSelectionScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                ),
-                GoRoute(
-                  name: MoreFeaturesScreen.name,
-                  path: MoreFeaturesScreen.name,
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const MoreFeaturesScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                ),
-                GoRoute(
-                  name: PrivacySettingsScreen.name,
-                  path: PrivacySettingsScreen.name,
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const PrivacySettingsScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                ),
-                GoRoute(
-                  name: PrivacyPolicyScreen.name,
-                  path: PrivacyPolicyScreen.name,
-                  pageBuilder: (context, state) => CustomTransitionPage(
-                    key: state.pageKey,
-                    child: const PrivacyPolicyScreen(),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(1, 0),
-                        end: Offset.zero,
-                      ).animate(animation),
-                      child: child,
-                    ),
-                  ),
-                ),
-              ],
+              name: PersonalInformationScreen.name,
+              path: PersonalInformationScreen.name,
+              builder: (context, state) =>
+                  const PersonalInformationScreen(),
+            ),
+            GoRoute(
+              name: AboutScreen.name,
+              path: AboutScreen.name,
+              builder: (context, state) => const AboutScreen(),
+            ),
+            GoRoute(
+              name: DarkModeScreen.name,
+              path: DarkModeScreen.name,
+              builder: (context, state) => const DarkModeScreen(),
+            ),
+            GoRoute(
+              name: LanguageSelectionScreen.name,
+              path: LanguageSelectionScreen.name,
+              builder: (context, state) =>
+                  const LanguageSelectionScreen(),
+            ),
+            GoRoute(
+              name: MoreFeaturesScreen.name,
+              path: MoreFeaturesScreen.name,
+              builder: (context, state) =>
+                  const MoreFeaturesScreen(),
+            ),
+            GoRoute(
+              name: PrivacySettingsScreen.name,
+              path: PrivacySettingsScreen.name,
+              builder: (context, state) =>
+                  const PrivacySettingsScreen(),
+            ),
+            GoRoute(
+              name: PrivacyPolicyScreen.name,
+              path: PrivacyPolicyScreen.name,
+              builder: (context, state) =>
+                  const PrivacyPolicyScreen(),
             ),
           ],
         ),
+      ],
+    ),
+  ],
+),
+        
       ],
     ),
   ],
@@ -326,8 +266,9 @@ final appRouter = GoRouter(
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: HomeScreen.name);
-final _shellNavigatorSettingsKey =
-    GlobalKey<NavigatorState>(debugLabel: SettingsScreen.name);
+
+final _shellNavigatorProfileKey =
+    GlobalKey<NavigatorState>(debugLabel: ProfileScreen.name);
 final _shellNavigatorAutomationKey =
     GlobalKey<NavigatorState>(debugLabel: AutomationScreen.name);
 final _shellNavigatorControlKey =
