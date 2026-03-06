@@ -1,3 +1,4 @@
+import 'package:evoliving/app/features/settings/sub_features/account_and_security/presentation/account_and_security_screen.dart';
 import 'package:evoliving/app/features/settings/sub_features/personal_information/presentation/personal_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Personal Information',
                     route: PersonalInformationScreen.name),
                 SettingsItem(
-                    title: 'Account and Security', route: '/account-security'),
+                    title: 'Account and Security', route: AccountAndSecurityScreen.name),
                 SettingsItem(title: 'Device Update', route: '/device-update'),
               ],
             ),

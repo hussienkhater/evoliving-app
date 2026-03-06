@@ -1,4 +1,5 @@
 import 'package:evoliving/app/features/profile/presentation/profile.dart';
+import 'package:evoliving/app/features/settings/sub_features/account_and_security/presentation/account_and_security_screen.dart';
 import 'package:evoliving/app/features/settings/sub_features/personal_information/presentation/personal_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -147,79 +148,82 @@ final appRouter = GoRouter(
             ]),
 
         StatefulShellBranch(
-  navigatorKey: _shellNavigatorProfileKey,
-  routes: [
-    GoRoute(
-      name: ProfileScreen.name,
-      path: '/${ProfileScreen.name}',
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: ProfileScreen(),
-      ),
-      routes: [
-        GoRoute(
-          name: SettingsScreen.name,
-          path: SettingsScreen.name, // مهم تشيل /
-          pageBuilder: (context, state) => CustomTransitionPage(
-            key: state.pageKey,
-            child: const SettingsScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            ),
-          ),
+          navigatorKey: _shellNavigatorProfileKey,
           routes: [
             GoRoute(
-              name: PersonalInformationScreen.name,
-              path: PersonalInformationScreen.name,
-              builder: (context, state) =>
-                  const PersonalInformationScreen(),
-            ),
-            GoRoute(
-              name: AboutScreen.name,
-              path: AboutScreen.name,
-              builder: (context, state) => const AboutScreen(),
-            ),
-            GoRoute(
-              name: DarkModeScreen.name,
-              path: DarkModeScreen.name,
-              builder: (context, state) => const DarkModeScreen(),
-            ),
-            GoRoute(
-              name: LanguageSelectionScreen.name,
-              path: LanguageSelectionScreen.name,
-              builder: (context, state) =>
-                  const LanguageSelectionScreen(),
-            ),
-            GoRoute(
-              name: MoreFeaturesScreen.name,
-              path: MoreFeaturesScreen.name,
-              builder: (context, state) =>
-                  const MoreFeaturesScreen(),
-            ),
-            GoRoute(
-              name: PrivacySettingsScreen.name,
-              path: PrivacySettingsScreen.name,
-              builder: (context, state) =>
-                  const PrivacySettingsScreen(),
-            ),
-            GoRoute(
-              name: PrivacyPolicyScreen.name,
-              path: PrivacyPolicyScreen.name,
-              builder: (context, state) =>
-                  const PrivacyPolicyScreen(),
+              name: ProfileScreen.name,
+              path: '/${ProfileScreen.name}',
+              pageBuilder: (context, state) => const NoTransitionPage(
+                child: ProfileScreen(),
+              ),
+              routes: [
+                GoRoute(
+                  name: SettingsScreen.name,
+                  path: SettingsScreen.name,
+                  pageBuilder: (context, state) => CustomTransitionPage(
+                    key: state.pageKey,
+                    child: const SettingsScreen(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) =>
+                            SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1, 0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  ),
+                  routes: [
+                    GoRoute(
+                      name: PersonalInformationScreen.name,
+                      path: PersonalInformationScreen.name,
+                      builder: (context, state) =>
+                          const PersonalInformationScreen(),
+                    ),
+                    GoRoute(
+                      path: AccountAndSecurityScreen.name,
+                      name: AccountAndSecurityScreen.name,
+                      builder: (context, state) =>
+                          const AccountAndSecurityScreen(),
+                    ),
+                    GoRoute(
+                      name: AboutScreen.name,
+                      path: AboutScreen.name,
+                      builder: (context, state) => const AboutScreen(),
+                    ),
+                    GoRoute(
+                      name: DarkModeScreen.name,
+                      path: DarkModeScreen.name,
+                      builder: (context, state) => const DarkModeScreen(),
+                    ),
+                    GoRoute(
+                      name: LanguageSelectionScreen.name,
+                      path: LanguageSelectionScreen.name,
+                      builder: (context, state) =>
+                          const LanguageSelectionScreen(),
+                    ),
+                    GoRoute(
+                      name: MoreFeaturesScreen.name,
+                      path: MoreFeaturesScreen.name,
+                      builder: (context, state) => const MoreFeaturesScreen(),
+                    ),
+                    GoRoute(
+                      name: PrivacySettingsScreen.name,
+                      path: PrivacySettingsScreen.name,
+                      builder: (context, state) =>
+                          const PrivacySettingsScreen(),
+                    ),
+                    GoRoute(
+                      name: PrivacyPolicyScreen.name,
+                      path: PrivacyPolicyScreen.name,
+                      builder: (context, state) => const PrivacyPolicyScreen(),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
-      ],
-    ),
-  ],
-),
-        
       ],
     ),
   ],
