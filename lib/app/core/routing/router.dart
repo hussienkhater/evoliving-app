@@ -1,5 +1,6 @@
 import 'package:evoliving/app/features/profile/presentation/profile.dart';
 import 'package:evoliving/app/features/settings/sub_features/account_and_security/presentation/account_and_security_screen.dart';
+import 'package:evoliving/app/features/settings/sub_features/device_update/presentation/device_update.dart';
 import 'package:evoliving/app/features/settings/sub_features/personal_information/presentation/personal_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -185,6 +186,11 @@ final appRouter = GoRouter(
                       name: AccountAndSecurityScreen.name,
                       builder: (context, state) =>
                           const AccountAndSecurityScreen(),
+                    ),
+                    GoRoute(
+                      name: DeviceUpdate.name,
+                      path: DeviceUpdate.name,
+                      builder: (context, state) => const DeviceUpdate(),
                     ),
                     GoRoute(
                       name: AboutScreen.name,
