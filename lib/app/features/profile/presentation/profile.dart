@@ -1,7 +1,7 @@
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
-import 'package:evoliving/app/core/extension_methods/navigation_x.dart';
 import 'package:evoliving/app/core/theming/app_colors_extension.dart';
 import 'package:evoliving/app/core/theming/text_theme_extension.dart';
+import 'package:evoliving/app/features/profile/presentation/more_services.dart';
 import 'package:evoliving/app/features/profile/presentation/widgets/profile_options.dart';
 import 'package:evoliving/app/features/profile/presentation/widgets/work_with_item.dart';
 import 'package:evoliving/app/features/settings/presentation/settings_screen.dart';
@@ -94,10 +94,15 @@ class ProfileScreen extends StatelessWidget {
                     const Spacer(
                       flex: 1,
                     ),
-                    Text(
-                      'More',
-                      style: context.textThemeX.medium.copyWith(
-                        color: context.colorsX.onSecondary.withOpacity(0.6),
+                    InkWell(
+                      onTap: () {
+                        context.pushNamed(MoreServices.name);
+                      },
+                      child: Text(
+                        'More',
+                        style: context.textThemeX.medium.copyWith(
+                          color: context.colorsX.onSecondary.withOpacity(0.6),
+                        ),
                       ),
                     ),
                     Icon(
@@ -162,8 +167,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Gap(50.h),
                 ProfileOptions(
-                  onTap: () =>
-                     context.pushNamed(SettingsScreen.name),
+                  onTap: () => context.pushNamed(SettingsScreen.name),
                   name: 'Settings',
                   icon: Icons.settings_outlined,
                 ),

@@ -1,11 +1,7 @@
-import 'package:evoliving/app/widgets/app_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
-import 'package:evoliving/app/core/extension_methods/text_style_x.dart';
 import 'package:evoliving/app/core/theming/app_colors_extension.dart';
 import 'package:evoliving/app/core/theming/text_theme_extension.dart';
 import 'package:evoliving/app/widgets/screen.dart';
