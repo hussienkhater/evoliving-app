@@ -1,3 +1,4 @@
+import 'package:evoliving/app/features/profile/presentation/more_services.dart';
 import 'package:evoliving/app/features/profile/presentation/profile.dart';
 import 'package:evoliving/app/features/settings/sub_features/account_and_security/presentation/account_and_security_screen.dart';
 import 'package:evoliving/app/features/settings/sub_features/device_update/presentation/device_update.dart';
@@ -159,6 +160,7 @@ final appRouter = GoRouter(
               ),
               routes: [
                 GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
                   name: SettingsScreen.name,
                   path: SettingsScreen.name,
                   pageBuilder: (context, state) => CustomTransitionPage(
@@ -174,57 +176,67 @@ final appRouter = GoRouter(
                       child: child,
                     ),
                   ),
-                  routes: [
-                    GoRoute(
-                      name: PersonalInformationScreen.name,
-                      path: PersonalInformationScreen.name,
-                      builder: (context, state) =>
-                          const PersonalInformationScreen(),
-                    ),
-                    GoRoute(
-                      path: AccountAndSecurityScreen.name,
-                      name: AccountAndSecurityScreen.name,
-                      builder: (context, state) =>
-                          const AccountAndSecurityScreen(),
-                    ),
-                    GoRoute(
-                      name: DeviceUpdate.name,
-                      path: DeviceUpdate.name,
-                      builder: (context, state) => const DeviceUpdate(),
-                    ),
-                    GoRoute(
-                      name: AboutScreen.name,
-                      path: AboutScreen.name,
-                      builder: (context, state) => const AboutScreen(),
-                    ),
-                    GoRoute(
-                      name: DarkModeScreen.name,
-                      path: DarkModeScreen.name,
-                      builder: (context, state) => const DarkModeScreen(),
-                    ),
-                    GoRoute(
-                      name: LanguageSelectionScreen.name,
-                      path: LanguageSelectionScreen.name,
-                      builder: (context, state) =>
-                          const LanguageSelectionScreen(),
-                    ),
-                    GoRoute(
-                      name: MoreFeaturesScreen.name,
-                      path: MoreFeaturesScreen.name,
-                      builder: (context, state) => const MoreFeaturesScreen(),
-                    ),
-                    GoRoute(
-                      name: PrivacySettingsScreen.name,
-                      path: PrivacySettingsScreen.name,
-                      builder: (context, state) =>
-                          const PrivacySettingsScreen(),
-                    ),
-                    GoRoute(
-                      name: PrivacyPolicyScreen.name,
-                      path: PrivacyPolicyScreen.name,
-                      builder: (context, state) => const PrivacyPolicyScreen(),
-                    ),
-                  ],
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: MoreServices.name,
+                  path: MoreServices.name,
+                  builder: (context, state) => const MoreServices(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: PersonalInformationScreen.name,
+                  path: PersonalInformationScreen.name,
+                  builder: (context, state) =>
+                      const PersonalInformationScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: AccountAndSecurityScreen.name,
+                  path: AccountAndSecurityScreen.name,
+                  builder: (context, state) => const AccountAndSecurityScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: DeviceUpdate.name,
+                  path: DeviceUpdate.name,
+                  builder: (context, state) => const DeviceUpdate(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: AboutScreen.name,
+                  path: AboutScreen.name,
+                  builder: (context, state) => const AboutScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: DarkModeScreen.name,
+                  path: DarkModeScreen.name,
+                  builder: (context, state) => const DarkModeScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: LanguageSelectionScreen.name,
+                  path: LanguageSelectionScreen.name,
+                  builder: (context, state) => const LanguageSelectionScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: MoreFeaturesScreen.name,
+                  path: MoreFeaturesScreen.name,
+                  builder: (context, state) => const MoreFeaturesScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: PrivacySettingsScreen.name,
+                  path: PrivacySettingsScreen.name,
+                  builder: (context, state) => const PrivacySettingsScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  name: PrivacyPolicyScreen.name,
+                  path: PrivacyPolicyScreen.name,
+                  builder: (context, state) => const PrivacyPolicyScreen(),
                 ),
               ],
             ),

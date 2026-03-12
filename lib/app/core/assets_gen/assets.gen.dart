@@ -144,6 +144,23 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/smart_thing.svg
   SvgGenImage get smartThing => const SvgGenImage('assets/svgs/smart_thing.svg');
 
+  /// File path: assets/svgs/more_options.svg
+  SvgGenImage get moreOptions => const SvgGenImage('assets/svgs/more_options.svg');
+
+  /// File path: assets/svgs/cancel.svg
+  SvgGenImage get cancel => const SvgGenImage('assets/svgs/cancel.svg');
+
+  /// File path: assets/svgs/ifttt_logo.svg
+  SvgGenImage get iftttLogo => const SvgGenImage('assets/svgs/ifttt_logo.svg');
+
+  /// File path: assets/svgs/setting.svg
+  SvgGenImage get setting => const SvgGenImage('assets/svgs/setting.svg');
+
+  /// file path: assets/svgs/reload.svg
+  SvgGenImage get reload => const SvgGenImage('assets/svgs/reload.svg');
+
+  /// file path: assets/svgs/alert.svg
+  SvgGenImage get alert => const SvgGenImage('assets/svgs/alert.svg');
   /// List of all assets
   List<SvgGenImage> get values => [
     photo1,
@@ -164,6 +181,12 @@ class $AssetsSvgsGen {
     alexa,
     googleAssistant,
     smartThing,
+    moreOptions,
+    cancel,
+    iftttLogo,
+    setting,
+    reload,
+    alert,
   ];
 }
 

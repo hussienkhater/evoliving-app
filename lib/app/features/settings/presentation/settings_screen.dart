@@ -26,6 +26,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Screen(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         title: Text('Settings', style: context.textThemeX.heading),
         centerTitle: true,
       ),
@@ -38,7 +39,8 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Personal Information',
                     route: PersonalInformationScreen.name),
                 SettingsItem(
-                    title: 'Account and Security', route: AccountAndSecurityScreen.name),
+                    title: 'Account and Security',
+                    route: AccountAndSecurityScreen.name),
                 SettingsItem(title: 'Device Update', route: DeviceUpdate.name),
               ],
             ),
