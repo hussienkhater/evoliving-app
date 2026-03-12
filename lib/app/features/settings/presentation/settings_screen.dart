@@ -48,10 +48,6 @@ class SettingsScreen extends StatelessWidget {
             SettingsSection(
               items: [
                 SettingsItem(
-                  title: 'App Notification',
-                  route: '/notifications',
-                ),
-                SettingsItem(
                   title: 'Dark Mode',
                   route: DarkModeScreen.name,
                 ),

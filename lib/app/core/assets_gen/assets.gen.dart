@@ -62,8 +62,12 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/weather.png
   AssetGenImage get weather => const AssetGenImage('assets/images/weather.png');
+
   /// File path: assets/images/Header_Background.png
   AssetGenImage get headerBackground => const AssetGenImage('assets/images/Header_Background.png');
+
+  /// file path: assets/images/Empty-pana.png
+  AssetGenImage get emptyPana => const AssetGenImage('assets/images/Empty-pana.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [
@@ -84,6 +88,7 @@ class $AssetsImagesGen {
     splashScreen,
     weather,
     headerBackground,
+    emptyPana,
   ];
 }
 
@@ -161,6 +166,12 @@ class $AssetsSvgsGen {
 
   /// file path: assets/svgs/alert.svg
   SvgGenImage get alert => const SvgGenImage('assets/svgs/alert.svg');
+
+  /// File path: assets/svgs/add.svg
+  SvgGenImage get add => const SvgGenImage('assets/svgs/add.svg');
+
+  /// file path: assets/svgs/stack.svg
+  SvgGenImage get stack => const SvgGenImage('assets/svgs/stack.svg');
   /// List of all assets
   List<SvgGenImage> get values => [
     photo1,
@@ -187,6 +198,8 @@ class $AssetsSvgsGen {
     setting,
     reload,
     alert,
+    add,
+    stack,
   ];
 }
 
