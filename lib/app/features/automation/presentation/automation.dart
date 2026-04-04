@@ -55,45 +55,43 @@ class AutomationScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Gap(100.h),
-            Assets.images.emptyPana.image(
-              width: 200.w,
-              height: 200.h,
+      body: Column(
+        children: [
+          Gap(150.h),
+          Assets.images.emptyPana.image(
+            width: 200.w,
+            height: 200.h,
+          ),
+          Gap(15.h),
+          Text(
+            'Create a task and tap it to run. This enables easy control of your smart devices.',
+            textAlign: TextAlign.center,
+            style: context.textThemeX.medium.copyWith(
+              color: context.colorsX.secondary.withOpacity(0.4),
             ),
-            Gap(15.h),
-            Text(
-              'Create a task and tap it to run. This enables easy control of your smart devices.',
-              textAlign: TextAlign.center,
-              style: context.textThemeX.medium.copyWith(
-                color: context.colorsX.secondary.withOpacity(0.4),
+          ),
+          Gap(110.h),
+          InkWell(
+            onTap: () {},
+            child: Container(
+              width: 300,
+              height: 60,
+              decoration: BoxDecoration(
+                color: context.colorsX.primary,
+                borderRadius: BorderRadius.circular(8),
               ),
-            ),
-            Gap(110.h),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: 300,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: context.colorsX.primary,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: Text(
-                    'Create Scene',
-                    style: context.textThemeX.medium.copyWith(
-                      color: context.colorsX.onPrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
+              child: Center(
+                child: Text(
+                  'Create Scene',
+                  style: context.textThemeX.medium.copyWith(
+                    color: context.colorsX.onPrimary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

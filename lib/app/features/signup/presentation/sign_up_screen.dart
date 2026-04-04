@@ -1,29 +1,28 @@
+import 'package:evoliving/app/features/signup/presentation/widgets/signup_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:go_router/go_router.dart';
 import 'package:evoliving/app/core/constants/app_colors.dart';
-import 'package:evoliving/app/core/theming/app_colors_extension.dart';
+import 'package:evoliving/app/core/extension_methods/context_x.dart';
+import 'package:evoliving/app/features/login/presentation/login_screen.dart';
 import 'package:evoliving/app/features/signup/cubit/sign_up_cubit.dart';
 import 'package:evoliving/app/features/signup/presentation/widgets/register_form.dart';
-import 'package:evoliving/app/features/signup/presentation/widgets/signup_text.dart';
 import 'package:evoliving/app/widgets/app_logo.dart';
 import 'package:evoliving/app/widgets/button.dart';
 import 'package:evoliving/app/widgets/custom_divider.dart';
 import 'package:evoliving/app/widgets/social_button.dart';
 import 'package:evoliving/app/widgets/spacing.dart';
+import 'package:animate_do/animate_do.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
-  static const String name = 'register-screen';
+  static const String name = 'signup-screen';
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SignUpCubit(context.read()),
-      child: const _SignUpView(),
-    );
+    return const _SignUpView();
   }
 }
 
@@ -40,20 +39,48 @@ class _SignUpView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
-                height: 200,
-                width: 200,
-                child: AppLogo(),
+              FadeInDown(
+                duration: const Duration(milliseconds: 500),
+                child: const SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: AppLogo(),
+                ),
               ),
-              const RegisterForm(),
+
+              FadeInUp(
+                duration: const Duration(milliseconds: 600),
+                child: const RegisterForm(),
+              ),
+
               verticalSpace(20),
-              const _SignUpButton(),
-              verticalSpace(80),
-              const CustomDivider(),
-              verticalSpace(20),
-              const SocialButtons(),
-              verticalSpace(20),
-              const LoginText(),
+
+              BounceInUp(
+                duration: const Duration(milliseconds: 700),
+                child: const _SignUpButton(),
+              ),
+
+              verticalSpace(50),
+
+              // ZoomIn(
+              //   duration: const Duration(milliseconds: 800),
+              //   child: const CustomDivider(),
+              // ),
+
+              //verticalSpace(20),
+
+              // SlideInLeft(
+              //   duration: const Duration(milliseconds: 900),
+              //   child: const SocialButtons(),
+              // ),
+
+              //verticalSpace(20),
+
+              SlideInRight(
+                duration: const Duration(milliseconds: 1000),
+                child: const LoginText(),
+              ),
+
               verticalSpace(20),
             ],
           ),
@@ -69,27 +96,39 @@ class _SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpCubit, SignUpState>(
-      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
-        if (state.status.isFailure) {
-          ScaffoldMessenger.of(context)
+        if (state.status.isSuccess) {
+          context.pushReplacementNamed(LoginScreen.name);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Account created successfully'),
+              backgroundColor: AppColors.primary,
+            ),
+          );
+        } else if (state.status.isFailure) {
+          context.scaffoldMessenger
             ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(state.errorMsg)));
+            ..showSnackBar(
+              SnackBar(
+                content: Text(state.errorMsg),
+              ),
+            );
         }
       },
       builder: (context, state) {
         return Button.filled(
           color: state.isValid
-              ? context.colorsX.secondary
-              : context.colorsX.secondary.withOpacity(0.6),
+              ? AppColors.primary
+              : AppColors.primary.withOpacity(0.8),
           maxWidth: true,
-          shape: ButtonShape.roundedCorners,
           isLoading: state.status.isLoading,
           density: ButtonDensity.comfortable,
+          shape: ButtonShape.roundedCorners,
           onPressed: state.isValid
               ? () => context.read<SignUpCubit>().signUpFormSubmitted()
               : null,
-          label: 'Get Verification Code',
+          label: 'Create Account',
         );
       },
     );
