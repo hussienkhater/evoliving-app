@@ -1,9 +1,6 @@
-import 'package:evoliving/app/core/injection/injection.dart';
-import 'package:evoliving/app/core/l10n/arb/app_localizations.dart';
 import 'package:evoliving/app/core/routing/router.dart';
 import 'package:evoliving/app/core/theming/app_theme.dart';
-import 'package:evoliving/app/features/settings/domain/settings_repository.dart';
-import 'package:evoliving/app/features/settings/presentation/widgets/settings_bloc.dart';
+import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,17 +16,14 @@ class EvolivingApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return BlocProvider(
-          create: (_) => SettingsBloc(getIt.get<SettingsRepository>()),
-          child: BlocBuilder<SettingsBloc, SettingsState>(
-            builder: (context, settingsState) {
+          create: (_) => AuthCubit()..checkAuth(),
+          child: Builder(
+            builder: (context) {
               return MaterialApp.router(
-                title: 'evoliving App',
+                title: 'Evoliving App',
                 theme: AppTheme.light,
                 darkTheme: AppTheme.dark,
-                locale: settingsState.settings.language.locale,
-                supportedLocales: AppLocalizations.supportedLocales,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                themeMode: settingsState.settings.themeMode,
+                themeMode: ThemeMode.system,
                 debugShowCheckedModeBanner: false,
                 routerConfig: appRouter,
               );

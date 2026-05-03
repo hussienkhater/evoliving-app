@@ -57,7 +57,9 @@ class _SignUpView extends StatelessWidget {
 
               BounceInUp(
                 duration: const Duration(milliseconds: 700),
-                child: const _SignUpButton(),
+                child:  _SignUpButton(
+                  onPressed: (){},
+                ),
               ),
 
               verticalSpace(50),
@@ -91,46 +93,28 @@ class _SignUpView extends StatelessWidget {
 }
 
 class _SignUpButton extends StatelessWidget {
-  const _SignUpButton();
+  final VoidCallback onPressed;
+  final bool isEnabled;
+  final bool isLoading;
+
+  const _SignUpButton({
+    required this.onPressed,
+    this.isEnabled = true,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignUpCubit, SignUpState>(
-      listener: (context, state) {
-        if (state.status.isSuccess) {
-          context.pushReplacementNamed(LoginScreen.name);
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Account created successfully'),
-              backgroundColor: AppColors.primary,
-            ),
-          );
-        } else if (state.status.isFailure) {
-          context.scaffoldMessenger
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(state.errorMsg),
-              ),
-            );
-        }
-      },
-      builder: (context, state) {
-        return Button.filled(
-          color: state.isValid
-              ? AppColors.primary
-              : AppColors.primary.withOpacity(0.8),
-          maxWidth: true,
-          isLoading: state.status.isLoading,
-          density: ButtonDensity.comfortable,
-          shape: ButtonShape.roundedCorners,
-          onPressed: state.isValid
-              ? () => context.read<SignUpCubit>().signUpFormSubmitted()
-              : null,
-          label: 'Create Account',
-        );
-      },
+    return Button.filled(
+      color: isEnabled
+          ? AppColors.primary
+          : AppColors.primary.withOpacity(0.8),
+      maxWidth: true,
+      isLoading: isLoading,
+      density: ButtonDensity.comfortable,
+      shape: ButtonShape.roundedCorners,
+      onPressed: isEnabled ? onPressed : null,
+      label: 'Create Account',
     );
   }
 }

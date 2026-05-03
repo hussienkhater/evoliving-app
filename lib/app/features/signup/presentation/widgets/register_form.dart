@@ -23,7 +23,7 @@ class RegisterForm extends StatelessWidget {
             )),
         verticalSpace(20),
         AppTextFormField(
-          onChanged: (value) => context.read<SignUpCubit>().nameChanged(value),
+         // onChanged: (value) => context.read<SignUpCubit>().nameChanged(value),
           hintText: 'Name',
           hintStyle: const TextStyle(color: AppColors.gray),
           inputTextStyle: const TextStyle(color: AppColors.secondary),
@@ -32,7 +32,7 @@ class RegisterForm extends StatelessWidget {
         ),
         verticalSpace(20),
         AppTextFormField(
-          onChanged: (value) => context.read<SignUpCubit>().emailChanged(value),
+          //onChanged: (value) => context.read<SignUpCubit>().emailChanged(value),
           hintText: 'Email Address',
           hintStyle: const TextStyle(color: AppColors.gray),
           inputTextStyle: const TextStyle(color: AppColors.secondary),
@@ -41,8 +41,8 @@ class RegisterForm extends StatelessWidget {
         ),
         verticalSpace(20),
         AppTextFormField(
-          onChanged: (value) =>
-              context.read<SignUpCubit>().passwordChanged(value),
+          //onChanged: (value) => context.read<SignUpCubit>().passwordChanged(value),
+          //    context.read<SignUpCubit>().passwordChanged(value),
           hintText: 'Password',
           hintStyle: const TextStyle(color: AppColors.gray),
           inputTextStyle: const TextStyle(color: AppColors.secondary),
@@ -53,8 +53,8 @@ class RegisterForm extends StatelessWidget {
         ),
         verticalSpace(20),
         AppTextFormField(
-          onChanged: (value) =>
-              context.read<SignUpCubit>().confirmedPasswordChanged(value),
+          //onChanged: (value) =>
+          //    context.read<SignUpCubit>().confirmedPasswordChanged(value),
           hintText: 'Confirm password',
           hintStyle: const TextStyle(color: AppColors.gray),
           inputTextStyle: const TextStyle(color: AppColors.secondary),

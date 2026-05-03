@@ -1,4 +1,6 @@
+import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
 import 'package:evoliving/app/core/extension_methods/navigation_x.dart';
@@ -41,7 +43,16 @@ class HomeScreen extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  child: const WelcomeHeader(),
+                  child: BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      String userName = "User";
+
+                      if (state is SuccessState) {
+                        userName = state.user.user?.userName ?? "User";
+                      }
+                      return WelcomeHeader(userName: userName);
+                    },
+                  ),
                 ),
               ),
               Align(
@@ -55,7 +66,6 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     itemBuilder: (context, index) => BounceInUp(
                       duration: Duration(milliseconds: 700 + (index * 100)),
-                      // تأخير بسيط لكل عنصر
                       child: Container(
                         height: 80.h,
                         width: 190.w,
@@ -105,7 +115,6 @@ class HomeScreen extends StatelessWidget {
             final device = DeviceConstants.devices[index];
             return FadeInUp(
               duration: Duration(milliseconds: 600 + (index * 100)),
-              // تأخير بسيط لكل عنصر
               child: DeviceCard(
                 deviceName: device.name,
                 deviceLocation: device.location,

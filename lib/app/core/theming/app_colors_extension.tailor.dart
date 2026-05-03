@@ -14,13 +14,13 @@ mixin _$ColorsXTailorMixin on ThemeExtension<ColorsX> {
   Color get onPrimary;
   Color get secondary;
   Color get onSecondary;
+  Color get mintGreen;
   Color get background;
   Color get secondaryBackground;
   Color get onBackground;
   Color get onBackgroundTint;
   Color get error;
   Color get onBackgroundTint35;
-  Color get mintGreen;
 
   @override
   ColorsX copyWith({
@@ -28,6 +28,7 @@ mixin _$ColorsXTailorMixin on ThemeExtension<ColorsX> {
     Color? onPrimary,
     Color? secondary,
     Color? onSecondary,
+    Color? mintGreen,
     Color? background,
     Color? secondaryBackground,
     Color? onBackground,
@@ -66,6 +67,7 @@ mixin _$ColorsXTailorMixin on ThemeExtension<ColorsX> {
             const DeepCollectionEquality().equals(secondary, other.secondary) &&
             const DeepCollectionEquality()
                 .equals(onSecondary, other.onSecondary) &&
+            const DeepCollectionEquality().equals(mintGreen, other.mintGreen) &&
             const DeepCollectionEquality()
                 .equals(background, other.background) &&
             const DeepCollectionEquality()
@@ -76,8 +78,7 @@ mixin _$ColorsXTailorMixin on ThemeExtension<ColorsX> {
                 .equals(onBackgroundTint, other.onBackgroundTint) &&
             const DeepCollectionEquality().equals(error, other.error) &&
             const DeepCollectionEquality()
-                .equals(onBackgroundTint35, other.onBackgroundTint35) &&
-            const DeepCollectionEquality().equals(mintGreen, other.mintGreen));
+                .equals(onBackgroundTint35, other.onBackgroundTint35));
   }
 
   @override
@@ -88,13 +89,13 @@ mixin _$ColorsXTailorMixin on ThemeExtension<ColorsX> {
       const DeepCollectionEquality().hash(onPrimary),
       const DeepCollectionEquality().hash(secondary),
       const DeepCollectionEquality().hash(onSecondary),
+      const DeepCollectionEquality().hash(mintGreen),
       const DeepCollectionEquality().hash(background),
       const DeepCollectionEquality().hash(secondaryBackground),
       const DeepCollectionEquality().hash(onBackground),
       const DeepCollectionEquality().hash(onBackgroundTint),
       const DeepCollectionEquality().hash(error),
       const DeepCollectionEquality().hash(onBackgroundTint35),
-      const DeepCollectionEquality().hash(mintGreen),
     );
   }
 }

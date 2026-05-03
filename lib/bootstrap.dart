@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:evoliving/app/core/injection/injection.dart';
 import 'package:evoliving/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -34,7 +33,5 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await configureDependencies(); // Now Flutter is initialized before calling this
-
   runApp(await builder());
 }

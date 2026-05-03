@@ -1,11 +1,13 @@
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
 import 'package:evoliving/app/core/theming/app_colors_extension.dart';
 import 'package:evoliving/app/core/theming/text_theme_extension.dart';
+import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
 import 'package:evoliving/app/features/profile/presentation/more_services.dart';
 import 'package:evoliving/app/features/profile/presentation/widgets/profile_options.dart';
 import 'package:evoliving/app/features/profile/presentation/widgets/work_with_item.dart';
 import 'package:evoliving/app/features/settings/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -40,14 +42,23 @@ class ProfileScreen extends StatelessWidget {
                         backgroundImage: Assets.images.profile.image().image,
                       ),
                       Gap(12.w),
-                      Text(
-                        'George wassouf',
+                      BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      String userName = "User";
+
+                      if (state is SuccessState) {
+                        userName = state.user.user?.userName ?? "User";
+                      }
+                      return Text(
+                        userName,
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
-                      ),
+                      );
+                    },
+                  ),
                       const Spacer(
                         flex: 1,
                       ),
