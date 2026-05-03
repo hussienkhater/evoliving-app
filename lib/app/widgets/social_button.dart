@@ -1,6 +1,6 @@
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
 import 'package:evoliving/app/core/constants/app_colors.dart';
-import 'package:evoliving/app/features/login/cubit/login_cubit.dart';
+import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +39,7 @@ class SocialButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,7 @@ class SocialButtons extends StatelessWidget {
               ),
               'Google',
               onTap: () {
-                context.read<LoginCubit>().logInWithGoogle();
+               // context.read<LoginCubit>().logInWithGoogle();
               },
             ),
             SizedBox(width: 16.w),
