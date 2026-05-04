@@ -3,7 +3,9 @@ import 'package:evoliving/app/core/network/models/secure_storage_service.dart';
 import 'package:evoliving/app/core/network/result_api.dart';
 import 'package:evoliving/app/features/authentication/data/api/auth_api.dart';
 import 'package:evoliving/app/features/authentication/data/models/request/login_request_model.dart';
+import 'package:evoliving/app/features/authentication/data/models/request/register_request_model.dart';
 import 'package:evoliving/app/features/authentication/data/models/response/login_response_model.dart';
+import 'package:evoliving/app/features/authentication/data/models/response/register_response_model.dart';
 
 part 'auth_state.dart';
 
@@ -11,6 +13,7 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
   LoginResponseModel? currentUser;
+  RegisterResponseModel? currentRegisterUser;
 
   Future<void> logInWithCredentials(LoginRequestModel request) async {
     emit(LoadingState());
@@ -28,10 +31,29 @@ class AuthCubit extends Cubit<AuthState> {
 
           await SecureStorageService.saveUser(result.data);
 
-          emit(SuccessState(result.data));
+          emit(LoginSuccessState(result.data));
           break;
 
         case ErrorApi<LoginResponseModel>():
+          emit(ErrorState(result.messageError));
+          break;
+      }
+    } catch (e) {
+      emit(ErrorState(e.toString()));
+    }
+  }
+
+  Future<void> registerWithCredentials(RegisterRequestModel request) async {
+    emit(LoadingState());
+
+    try {
+      final result = await AuthApi.registerAuth(request);
+
+      switch (result) {
+        case SuccessApi<RegisterResponseModel>():
+          currentRegisterUser = result.data;
+          emit(RegisterSuccessState(result.data));
+        case ErrorApi<RegisterResponseModel>():
           emit(ErrorState(result.messageError));
           break;
       }
@@ -54,7 +76,7 @@ class AuthCubit extends Cubit<AuthState> {
 
       if (user != null) {
         currentUser = user;
-        emit(SuccessState(user));
+        emit(LoginSuccessState(user));
       } else {
         emit(UnauthenticatedState());
       }

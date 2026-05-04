@@ -33,7 +33,7 @@ class WelcomeHeader extends StatelessWidget {
               builder: (context, state) {
                 String userName = this.userName;
 
-                if (state is SuccessState) {
+                if (state is LoginSuccessState) {
                   userName = state.user.user?.userName ?? "User";
                 }
 

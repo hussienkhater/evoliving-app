@@ -5,13 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
 import 'package:evoliving/app/core/extension_methods/text_style_x.dart';
 import 'package:evoliving/app/core/theming/app_colors_extension.dart';
 import 'package:evoliving/app/core/theming/text_theme_extension.dart';
 import 'package:evoliving/app/widgets/screen.dart';
-
 import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
@@ -58,7 +56,7 @@ class _PersonalInformationScreenState
         padding: EdgeInsets.all(16.w),
         child: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
-            final isSuccess = state is SuccessState;
+            final isSuccess = state is LoginSuccessState;
 
             final userName = isSuccess
                 ? (state.user.user?.userName ?? '')

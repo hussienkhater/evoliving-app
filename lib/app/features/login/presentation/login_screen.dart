@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<AuthCubit, AuthState>(
         bloc: cubit,
         listener: (context, state) {
-          if (state is SuccessState) {
+          if (state is LoginSuccessState) {
             context.pushReplacementNamed(HomeScreen.name);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

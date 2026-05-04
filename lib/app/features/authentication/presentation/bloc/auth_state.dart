@@ -2,20 +2,23 @@ part of 'auth_cubit.dart';
 
 abstract class AuthState {}
 
-final class AuthInitial extends AuthState {}
+class AuthInitial extends AuthState {}
 
-final class LoadingState extends AuthState {}
+class LoadingState extends AuthState {}
 
-final class SuccessState extends AuthState {
+class LoginSuccessState extends AuthState {
   final LoginResponseModel user;
-
-  SuccessState(this.user);
+  LoginSuccessState(this.user);
 }
 
-final class ErrorState extends AuthState {
-  final String messageError;
+class RegisterSuccessState extends AuthState {
+  final RegisterResponseModel user;
+  RegisterSuccessState(this.user);
+}
 
+class ErrorState extends AuthState {
+  final String messageError;
   ErrorState(this.messageError);
 }
 
-final class UnauthenticatedState extends AuthState {}
+class UnauthenticatedState extends AuthState {}
