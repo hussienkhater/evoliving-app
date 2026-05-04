@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                     builder: (context, state) {
                       String userName = "User";
 
-                      if (state is SuccessState) {
+                      if (state is LoginSuccessState) {
                         userName = state.user.user?.userName ?? "User";
                       }
                       return WelcomeHeader(userName: userName);

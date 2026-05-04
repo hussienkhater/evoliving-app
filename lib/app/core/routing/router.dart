@@ -37,14 +37,13 @@ final GoRouter appRouter = GoRouter(
   initialLocation: '/${SplashScreen.name}',
   refreshListenable: GoRouterRefreshStream(_authCubit.stream),
   redirect: (context, state) {
-    final isAuthenticated = _authCubit.state is SuccessState;
+    final isAuthenticated = _authCubit.state is LoginSuccessState;
 
     final isAuthRoute = state.matchedLocation == '/${SplashScreen.name}' ||
         state.matchedLocation == '/${OnboardingScreen.name}' ||
         state.matchedLocation == '/${LoginScreen.name}' ||
         state.matchedLocation == '/${SignUpScreen.name}';
 
-    /// ❌ مش logged in → روح login
     if (!isAuthenticated && !isAuthRoute) {
       return '/${LoginScreen.name}';
     }
