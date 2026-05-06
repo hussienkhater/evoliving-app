@@ -1,4 +1,6 @@
 import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
+import 'package:evoliving/app/features/home/presentation/bloc/control_device_cubit.dart';
+import 'package:evoliving/app/features/home/presentation/bloc/control_device_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,111 +21,145 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 350.h,
-          child: Stack(
-            alignment: Alignment.topCenter,
-            clipBehavior: Clip.none,
-            children: [
-              FadeInDown(
-                duration: const Duration(milliseconds: 500),
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  height: 300.h,
-                  width: context.width,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                  decoration: BoxDecoration(
-                    color: context.colorsX.primary,
-                    image: DecorationImage(
-                      image: AssetImage(Assets.images.lines.path),
-                      opacity: 0.3,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  child: BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      String userName = "User";
+    return BlocProvider(
+      create: (_) => ControlDeviceCubit()..getDevicesStatus(),
+      child: BlocBuilder<ControlDeviceCubit, ControlDeviceState>(
+        builder: (context, state) {
+          final cubit = context.read<ControlDeviceCubit>();
 
-                      if (state is LoginSuccessState) {
-                        userName = state.user.user?.userName ?? "User";
-                      }
-                      return WelcomeHeader(userName: userName);
-                    },
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  height: 80.h,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    itemBuilder: (context, index) => BounceInUp(
-                      duration: Duration(milliseconds: 700 + (index * 100)),
+          return Column(
+            children: [
+              /// HEADER
+              SizedBox(
+                height: 350.h,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  clipBehavior: Clip.none,
+                  children: [
+                    FadeInDown(
+                      duration: const Duration(milliseconds: 500),
                       child: Container(
-                        height: 80.h,
-                        width: 190.w,
+                        alignment: Alignment.topCenter,
+                        height: 300.h,
+                        width: context.width,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.r),
-                          color: context.colorsX.secondary,
+                          color: context.colorsX.primary,
+                          image: DecorationImage(
+                            image: AssetImage(Assets.images.lines.path),
+                            opacity: 0.3,
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 54.h,
-                              width: 54.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16.r),
-                                color: context.colorsX.background,
-                              ),
-                              child: Assets.svgs.vector.svg(),
-                            ),
-                            horizontalSpace(10),
-                            Text(
-                              'All Devices',
-                              style: context.textThemeX.medium,
-                            )
-                          ],
+                        child: BlocBuilder<AuthCubit, AuthState>(
+                          builder: (context, state) {
+                            String userName = "User";
+
+                            if (state is LoginSuccessState) {
+                              userName = state.user.user?.userName ?? "User";
+                            }
+
+                            return WelcomeHeader(userName: userName);
+                          },
                         ),
                       ),
                     ),
-                    separatorBuilder: (context, index) => horizontalSpace(15),
+
+                    /// TOP CARDS
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: SizedBox(
+                        height: 80.h,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          itemBuilder: (context, index) => BounceInUp(
+                            duration:
+                                Duration(milliseconds: 700 + (index * 100)),
+                            child: Container(
+                              height: 80.h,
+                              width: 190.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                                color: context.colorsX.secondary,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 54.h,
+                                    width: 54.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16.r),
+                                      color: context.colorsX.background,
+                                    ),
+                                    child: Assets.svgs.vector.svg(),
+                                  ),
+                                  horizontalSpace(10),
+                                  Text(
+                                    'All Devices',
+                                    style: context.textThemeX.medium,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          separatorBuilder: (context, index) =>
+                              horizontalSpace(15),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              /// GRID
+              Expanded(
+                child: GridView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                   ),
+                  itemCount: DeviceConstants.devices.length,
+                  itemBuilder: (context, index) {
+                    final device = DeviceConstants.devices[index];
+
+                    final isActive =
+                        cubit.deviceStates[device.relayId.toString()] ??
+                            device.isActive;
+
+                    final isLoading =
+                        cubit.loadingMap[device.relayId.toString()] ?? false;
+
+                    return FadeInUp(
+                      duration: Duration(milliseconds: 600 + (index * 100)),
+                      child: DeviceCard(
+                        deviceName: device.name,
+                        deviceLocation: device.location,
+                        imagePath: device.imagePath,
+                        isActive: isActive,
+                        isLoading: isLoading,
+                        onToggle: (value) {
+                          cubit.controlDevice(
+                            relayId: device.relayId,
+                            isOn: value,
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
-          ),
-        ),
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(16),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
-          itemCount: DeviceConstants.devices.length,
-          itemBuilder: (context, index) {
-            final device = DeviceConstants.devices[index];
-            return FadeInUp(
-              duration: Duration(milliseconds: 600 + (index * 100)),
-              child: DeviceCard(
-                deviceName: device.name,
-                deviceLocation: device.location,
-                imagePath: device.imagePath,
-              ),
-            );
-          },
-        ),
-      ],
+          );
+        },
+      ),
     );
   }
 }

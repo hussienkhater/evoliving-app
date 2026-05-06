@@ -1,93 +1,58 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
 import 'package:evoliving/app/core/constants/app_colors.dart';
 import 'package:evoliving/app/core/theming/app_colors_extension.dart';
-import 'package:evoliving/app/core/theming/text_theme_extension.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DeviceCard extends StatefulWidget {
+class DeviceCard extends StatelessWidget {
   final String deviceName;
   final String deviceLocation;
   final String imagePath;
-  final bool initialActiveState;
+  final bool isActive;
+  final bool isLoading;
+  final Function(bool value) onToggle;
 
   const DeviceCard({
-    required this.deviceName, required this.deviceLocation, required this.imagePath, super.key,
-    this.initialActiveState = false,
+    super.key,
+    required this.deviceName,
+    required this.deviceLocation,
+    required this.imagePath,
+    required this.isActive,
+    required this.isLoading,
+    required this.onToggle,
   });
-
-  @override
-  State<StatefulWidget> createState() => _DeviceCardState();
-}
-
-class _DeviceCardState extends State<DeviceCard> {
-  late bool isActive;
-
-  @override
-  void initState() {
-    super.initState();
-    isActive = widget.initialActiveState;
-  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: context.colorsX.primary,
+      color: AppColors.primary,
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0.r),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Container(
-                    width: 135.w,
-                    height: 135.h,
-                    padding: EdgeInsetsDirectional.only(start: 20.w, top: 5.h),
-                    alignment: AlignmentDirectional.topStart,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(Assets.images.backDevice.path),
-                        alignment: AlignmentDirectional.topStart,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Image.asset(
-                        widget.imagePath,
-                        fit: BoxFit.contain,
-                        height: 70.w,
-                      ),
+                  child: Image.asset(imagePath, height: 70.w),
+                ),
+                if (isLoading)
+                  const CircularProgressIndicator()
+                else
+                  Transform.rotate(
+                    angle: 3.14 / 2,
+                    child: Switch(
+                      value: isActive,
+                      onChanged: (value) {
+                        onToggle(value);
+                      },
+                      activeColor: context.colorsX.primary,
+                      activeTrackColor: context.colorsX.mintGreen,
+                      inactiveThumbColor: context.colorsX.primary,
+                      inactiveTrackColor: AppColors.track,
                     ),
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Transform.rotate(
-                      angle: 3.14 / 2,
-                      child: Switch(
-                        value: isActive,
-                        onChanged: (value) {
-                          setState(() {
-                            isActive = value;
-                          });
-                        },
-                        activeColor: context.colorsX.primary,
-                        activeTrackColor: context.colorsX.secondary,
-                        inactiveThumbColor: context.colorsX.primary,
-                        inactiveTrackColor: AppColors.track,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                  ],
-                ),
               ],
             ),
           ),
@@ -96,15 +61,9 @@ class _DeviceCardState extends State<DeviceCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.deviceName,
-                  style: context.textThemeX.medium,
-                ),
+                Text(deviceName),
                 const SizedBox(height: 4),
-                Text(
-                  widget.deviceLocation,
-                  style: context.textThemeX.small,
-                ),
+                Text(deviceLocation),
               ],
             ),
           ),
