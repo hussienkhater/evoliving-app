@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:evoliving/app/core/extension_methods/text_style_x.dart';
 import 'package:evoliving/app/core/theming/app_colors_extension.dart';
 import 'package:evoliving/app/core/theming/text_theme_extension.dart';
