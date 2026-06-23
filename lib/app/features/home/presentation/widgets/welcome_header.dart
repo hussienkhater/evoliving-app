@@ -1,4 +1,8 @@
+import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
+import 'package:evoliving/app/features/home/presentation/bloc/sensor_cubit.dart';
+import 'package:evoliving/app/features/home/presentation/bloc/sensor_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
 import 'package:evoliving/app/core/extension_methods/text_style_x.dart';
@@ -6,13 +10,24 @@ import 'package:evoliving/app/core/theming/text_theme_extension.dart';
 import 'package:evoliving/app/features/home/presentation/widgets/weather_info_widget.dart';
 import 'package:evoliving/app/widgets/spacing.dart';
 
-class WelcomeHeader extends StatelessWidget {
-  const WelcomeHeader({super.key});
+class WelcomeHeader extends StatefulWidget {
+  final String userName;
 
+  const WelcomeHeader({
+    super.key,
+    required this.userName,
+  });
+
+  @override
+  State<WelcomeHeader> createState() => _WelcomeHeaderState();
+}
+
+class _WelcomeHeaderState extends State<WelcomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        /// ================= TOP ROW =================
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -21,23 +36,36 @@ class WelcomeHeader extends StatelessWidget {
               backgroundImage: AssetImage(Assets.images.profile.path),
             ),
             horizontalSpace(12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome home,',
-                  style: context.textThemeX.medium,
-                ),
-                Text(
-                  'George Wassouf',
-                  style: context.textThemeX.large.bold,
-                )
-              ],
+            BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                String userName = this.widget.userName;
+
+                if (state is LoginSuccessState) {
+                  userName = state.user.user?.userName ?? "User";
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Welcome home,',
+                      style: context.textThemeX.medium,
+                    ),
+                    Text(
+                      userName,
+                      style: context.textThemeX.large.bold,
+                    ),
+                  ],
+                );
+              },
             ),
             const Spacer(),
             PopupMenuButton<int>(
-              icon: const Icon(Icons.add_circle_outline,
-                  color: Colors.white, size: 20),
+              icon: const Icon(
+                Icons.add_circle_outline,
+                color: Colors.white,
+                size: 20,
+              ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
@@ -47,15 +75,19 @@ class WelcomeHeader extends StatelessWidget {
                 _buildMenuItem(Icons.access_time, 'Add Quick toggle card', 2),
                 _buildMenuItem(Icons.qr_code_scanner, 'Scan', 3),
               ],
-              onSelected: (value) {
-                // تنفيذ أي شيء عند الضغط على عنصر في القائمة
-              },
+              onSelected: (value) {},
             ),
             horizontalSpace(12),
-            const Icon(Icons.headset_mic_sharp, color: Colors.white, size: 20),
+            const Icon(
+              Icons.headset_mic_sharp,
+              color: Colors.white,
+              size: 20,
+            ),
           ],
         ),
+
         verticalSpace(26),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -63,7 +95,7 @@ class WelcomeHeader extends StatelessWidget {
             horizontalSpace(12),
             Text(
               'Home Name...',
-              style: context.textThemeX.large,
+              style: context.textThemeX.medium,
             ),
             const Spacer(),
             Container(
@@ -88,9 +120,7 @@ class WelcomeHeader extends StatelessWidget {
                   _buildMenuItem(Icons.access_time, 'Add Quick toggle card', 2),
                   _buildMenuItem(Icons.qr_code_scanner, 'Scan', 3),
                 ],
-                onSelected: (value) {
-
-                },
+                onSelected: (value) {},
               ),
             ),
           ],
@@ -106,33 +136,73 @@ class WelcomeHeader extends StatelessWidget {
             children: [
               horizontalSpace(8),
               Container(
-                  height: 80.h,
-                  width: 80.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.r),
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  child: Assets.images.weather.image(
-                    fit: BoxFit.cover,
-                    width: 80.w,
-                    height: 80.h,
-                  )),
+                height: 80.h,
+                width: 80.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.r),
+                  color: Colors.white.withOpacity(0.2),
+                ),
+                padding: const EdgeInsets.all(8),
+                child: Assets.images.weather.image(
+                  fit: BoxFit.cover,
+                ),
+              ),
               horizontalSpace(20),
-              const WeatherInfoWidget(
-                condition: 'Partly Cloudy',
-                temperature: '23°',
+              Expanded(
+                child: BlocBuilder<SensorCubit, SensorState>(
+                  builder: (context, state) {
+                    if (state is SensorLoading) {
+                      return const Center(
+                        child: SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+
+                    if (state is SensorSuccess) {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: WeatherInfoWidget(
+                              condition: 'Temperature',
+                              value: '${state.sensor.temperature?.round()}°C',
+                            ),
+                          ),
+                          horizontalSpace(10),
+                          Expanded(
+                            child: WeatherInfoWidget(
+                              condition: 'Humidity',
+                              value: '${state.sensor.humidity?.round()}%',
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+
+                    return const Row(
+                      children: [
+                        WeatherInfoWidget(
+                          condition: 'Temperature',
+                          value: '-- °C',
+                        ),
+                        SizedBox(width: 10),
+                        WeatherInfoWidget(
+                          condition: 'Humidity',
+                          value: '-- %',
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
-              horizontalSpace(6),
-              const WeatherInfoWidget(
-                condition: 'Humidity',
-                temperature: '67%',
-              ),
+              horizontalSpace(10),
               const WeatherInfoWidget(
                 condition: 'Wind Speed',
-                temperature: '3.1m/s',
+                value: '10 m/s',
               ),
-              horizontalSpace(8),
+              horizontalSpace(10),
             ],
           ),
         ),
@@ -140,16 +210,24 @@ class WelcomeHeader extends StatelessWidget {
     );
   }
 
-  PopupMenuItem<int> _buildMenuItem(IconData icon, String text, int value) {
+  PopupMenuItem<int> _buildMenuItem(
+    IconData icon,
+    String text,
+    int value,
+  ) {
     return PopupMenuItem(
       value: value,
       child: Row(
         children: [
           Icon(icon, color: Colors.black87),
           const SizedBox(width: 10),
-          Text(text,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
       ),
     );

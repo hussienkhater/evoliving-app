@@ -1,11 +1,19 @@
-
 // Endpoints & Base URL
 class Endpoints {
-  static const String baseUrl = 'https://skillifyr.com/dashboard/public/api/';
+  static const String baseUrl = 'graduation-project-sepia-eta.vercel.app';
+  static const String baseUrl2 = 'mqtt-project-production.up.railway.app';
+  static const String baseUrl3 = 'localhost:4000';
 
   /// Auth System Endpoints
-  static const String signUp = 'sign-up';
+  static const String signUp = '/api/user/register';
   static const String logout = 'logout';
-  static const String login = 'login';
+  static const String login = '/api/user/login';
   static const String verifyAccount = 'verify-account';
+  static const String forgotPassword = 'forgot-password';
+  static const String resetPassword = 'reset-password';
+
+  /// Device Control Endpoints
+  static const String controlDevice = '/api/device/control';
+  static const String getDeviceStatus = '/api/device/status';
+  static const String getLatestSensorData = "/api/sensor/latest";
 }

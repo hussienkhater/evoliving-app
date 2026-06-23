@@ -1,3 +1,5 @@
+import 'package:evoliving/app/features/settings/sub_features/account_and_security/presentation/account_and_security_screen.dart';
+import 'package:evoliving/app/features/settings/sub_features/device_update/presentation/device_update.dart';
 import 'package:evoliving/app/features/settings/sub_features/personal_information/presentation/personal_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,6 +26,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Screen(
       appBar: AppBar(
+        toolbarHeight: 56.h,
         title: Text('Settings', style: context.textThemeX.heading),
         centerTitle: true,
       ),
@@ -36,17 +39,14 @@ class SettingsScreen extends StatelessWidget {
                     title: 'Personal Information',
                     route: PersonalInformationScreen.name),
                 SettingsItem(
-                    title: 'Account and Security', route: '/account-security'),
-                SettingsItem(title: 'Device Update', route: '/device-update'),
+                    title: 'Account and Security',
+                    route: AccountAndSecurityScreen.name),
+                SettingsItem(title: 'Device Update', route: DeviceUpdate.name),
               ],
             ),
             Gap(16.h),
             SettingsSection(
               items: [
-                SettingsItem(
-                  title: 'App Notification',
-                  route: '/notifications',
-                ),
                 SettingsItem(
                   title: 'Dark Mode',
                   route: DarkModeScreen.name,

@@ -11,7 +11,7 @@ class AppTextFormField extends StatelessWidget {
   final InputBorder? enabledBorder;
   final TextStyle? hintStyle;
   final TextStyle? inputTextStyle;
-  final String hintText;
+  final String? hintText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool? obscureText;

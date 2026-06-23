@@ -63,6 +63,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/weather.png
   AssetGenImage get weather => const AssetGenImage('assets/images/weather.png');
 
+  /// File path: assets/images/Header_Background.png
+  AssetGenImage get headerBackground => const AssetGenImage('assets/images/Header_Background.png');
+
+  /// file path: assets/images/Empty-pana.png
+  AssetGenImage get emptyPana => const AssetGenImage('assets/images/Empty-pana.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
     airConditioner,
@@ -81,6 +87,8 @@ class $AssetsImagesGen {
     speaker,
     splashScreen,
     weather,
+    headerBackground,
+    emptyPana,
   ];
 }
 
@@ -132,6 +140,38 @@ class $AssetsSvgsGen {
   /// file path: assets/svgs/change_photo.svg
   SvgGenImage get changePhoto => const SvgGenImage('assets/svgs/change_photo.svg');
 
+  /// File path: assets/svgs/alexa.svg
+  SvgGenImage get alexa => const SvgGenImage('assets/svgs/alexa.svg');
+
+  /// File path: assets/svgs/google_assistant.svg
+  SvgGenImage get googleAssistant => const SvgGenImage('assets/svgs/google_assistant.svg');
+
+  /// File path: assets/svgs/smart_thing.svg
+  SvgGenImage get smartThing => const SvgGenImage('assets/svgs/smart_thing.svg');
+
+  /// File path: assets/svgs/more_options.svg
+  SvgGenImage get moreOptions => const SvgGenImage('assets/svgs/more_options.svg');
+
+  /// File path: assets/svgs/cancel.svg
+  SvgGenImage get cancel => const SvgGenImage('assets/svgs/cancel.svg');
+
+  /// File path: assets/svgs/ifttt_logo.svg
+  SvgGenImage get iftttLogo => const SvgGenImage('assets/svgs/ifttt_logo.svg');
+
+  /// File path: assets/svgs/setting.svg
+  SvgGenImage get setting => const SvgGenImage('assets/svgs/setting.svg');
+
+  /// file path: assets/svgs/reload.svg
+  SvgGenImage get reload => const SvgGenImage('assets/svgs/reload.svg');
+
+  /// file path: assets/svgs/alert.svg
+  SvgGenImage get alert => const SvgGenImage('assets/svgs/alert.svg');
+
+  /// File path: assets/svgs/add.svg
+  SvgGenImage get add => const SvgGenImage('assets/svgs/add.svg');
+
+  /// file path: assets/svgs/stack.svg
+  SvgGenImage get stack => const SvgGenImage('assets/svgs/stack.svg');
   /// List of all assets
   List<SvgGenImage> get values => [
     photo1,
@@ -149,6 +189,17 @@ class $AssetsSvgsGen {
     speaker,
     vector,
     changePhoto,
+    alexa,
+    googleAssistant,
+    smartThing,
+    moreOptions,
+    cancel,
+    iftttLogo,
+    setting,
+    reload,
+    alert,
+    add,
+    stack,
   ];
 }
 

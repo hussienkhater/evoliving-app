@@ -41,6 +41,7 @@ ThemeData _themeData(ColorsX colorScheme) {
       ),
     ),
     appBarTheme: AppBarTheme(
+      toolbarHeight: 150.h,
       color: colorScheme.background,
       foregroundColor: colorScheme.onBackground,
       systemOverlayStyle: SystemUiOverlayStyle(
