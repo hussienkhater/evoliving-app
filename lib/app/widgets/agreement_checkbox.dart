@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:evoliving/app/core/constants/app_colors.dart';
-import 'package:evoliving/app/core/theming/app_colors_extension.dart';
-import 'package:evoliving/app/core/theming/text_theme_extension.dart';
 
 class AgreementCheckbox extends StatefulWidget {
   const AgreementCheckbox({super.key});
@@ -16,14 +14,17 @@ class _AgreementCheckboxState extends State<AgreementCheckbox> {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
+      checkboxShape: const CircleBorder(),
       dense: true,
-      contentPadding: EdgeInsets.zero,
-      title: Text(
+      title: const Text(
         'I agree with the Terms of Service & Privacy Policy',
-        style: context.textThemeX.medium.copyWith(
+        style: TextStyle(
           color: AppColors.primary,
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
         ),
       ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 1),
       value: isChecked,
       onChanged: (value) {
         setState(() {
@@ -31,7 +32,7 @@ class _AgreementCheckboxState extends State<AgreementCheckbox> {
         });
       },
       controlAffinity: ListTileControlAffinity.leading,
-      activeColor: AppColors.primary,
+      activeColor: AppColors.mintGreen,
     );
   }
 }

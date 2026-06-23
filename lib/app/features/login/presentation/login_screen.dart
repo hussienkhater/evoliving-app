@@ -156,7 +156,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: context.colorsX.primary),
                           backgroundColor: AppColors.light,
                         ),
-                        verticalSpace(5),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Text(
+                              'Forgot password?',
+                              style: context.textThemeX.medium.copyWith(
+                                color: AppColors.primary,
+                              ),
+                            ),
+                          ),
+                        ),
                         const AgreementCheckbox(),
                       ],
                     ),

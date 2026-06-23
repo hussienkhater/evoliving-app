@@ -5,34 +5,32 @@ import 'package:evoliving/app/widgets/spacing.dart';
 
 class WeatherInfoWidget extends StatelessWidget {
   final String condition;
-  final String temperature;
+  final String value;
 
   const WeatherInfoWidget({
     required this.condition,
-    required this.temperature,
+    required this.value,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              condition,
-              style: context.textThemeX.small,
-            ),
-            verticalSpace(4),
-            Text(
-              temperature,
-              style: context.textThemeX.heading.bold,
-            ),
-          ],
-        ),
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            condition,
+            style: context.textThemeX.small,
+          ),
+          verticalSpace(4),
+          Text(
+            value,
+            style: context.textThemeX.heading.bold,
+          ),
+        ],
       ),
     );
   }

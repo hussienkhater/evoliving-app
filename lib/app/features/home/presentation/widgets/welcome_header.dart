@@ -1,4 +1,6 @@
 import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
+import 'package:evoliving/app/features/home/presentation/bloc/sensor_cubit.dart';
+import 'package:evoliving/app/features/home/presentation/bloc/sensor_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +10,7 @@ import 'package:evoliving/app/core/theming/text_theme_extension.dart';
 import 'package:evoliving/app/features/home/presentation/widgets/weather_info_widget.dart';
 import 'package:evoliving/app/widgets/spacing.dart';
 
-class WelcomeHeader extends StatelessWidget {
+class WelcomeHeader extends StatefulWidget {
   final String userName;
 
   const WelcomeHeader({
@@ -16,6 +18,11 @@ class WelcomeHeader extends StatelessWidget {
     required this.userName,
   });
 
+  @override
+  State<WelcomeHeader> createState() => _WelcomeHeaderState();
+}
+
+class _WelcomeHeaderState extends State<WelcomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +38,7 @@ class WelcomeHeader extends StatelessWidget {
             horizontalSpace(12),
             BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
-                String userName = this.userName;
+                String userName = this.widget.userName;
 
                 if (state is LoginSuccessState) {
                   userName = state.user.user?.userName ?? "User";
@@ -141,20 +148,61 @@ class WelcomeHeader extends StatelessWidget {
                 ),
               ),
               horizontalSpace(20),
-              const WeatherInfoWidget(
-                condition: 'Partly Cloudy',
-                temperature: '23°',
+              Expanded(
+                child: BlocBuilder<SensorCubit, SensorState>(
+                  builder: (context, state) {
+                    if (state is SensorLoading) {
+                      return const Center(
+                        child: SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+
+                    if (state is SensorSuccess) {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: WeatherInfoWidget(
+                              condition: 'Temperature',
+                              value: '${state.sensor.temperature?.round()}°C',
+                            ),
+                          ),
+                          horizontalSpace(10),
+                          Expanded(
+                            child: WeatherInfoWidget(
+                              condition: 'Humidity',
+                              value: '${state.sensor.humidity?.round()}%',
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+
+                    return const Row(
+                      children: [
+                        WeatherInfoWidget(
+                          condition: 'Temperature',
+                          value: '-- °C',
+                        ),
+                        SizedBox(width: 10),
+                        WeatherInfoWidget(
+                          condition: 'Humidity',
+                          value: '-- %',
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
-              horizontalSpace(6),
-              const WeatherInfoWidget(
-                condition: 'Humidity',
-                temperature: '67%',
-              ),
+              horizontalSpace(10),
               const WeatherInfoWidget(
                 condition: 'Wind Speed',
-                temperature: '3.1m/s',
+                value: '10 m/s',
               ),
-              horizontalSpace(8),
+              horizontalSpace(10),
             ],
           ),
         ),

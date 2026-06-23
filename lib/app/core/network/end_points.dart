@@ -1,8 +1,8 @@
-
 // Endpoints & Base URL
 class Endpoints {
   static const String baseUrl = 'graduation-project-sepia-eta.vercel.app';
   static const String baseUrl2 = 'mqtt-project-production.up.railway.app';
+  static const String baseUrl3 = 'localhost:4000';
 
   /// Auth System Endpoints
   static const String signUp = '/api/user/register';
@@ -15,4 +15,5 @@ class Endpoints {
   /// Device Control Endpoints
   static const String controlDevice = '/api/device/control';
   static const String getDeviceStatus = '/api/device/status';
+  static const String getLatestSensorData = "/api/sensor/latest";
 }

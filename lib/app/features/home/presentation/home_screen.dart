@@ -1,3 +1,4 @@
+import 'package:evoliving/app/core/extension_methods/text_style_x.dart';
 import 'package:evoliving/app/features/authentication/presentation/bloc/auth_cubit.dart';
 import 'package:evoliving/app/features/home/presentation/bloc/control_device_cubit.dart';
 import 'package:evoliving/app/features/home/presentation/bloc/control_device_state.dart';
@@ -11,7 +12,6 @@ import 'package:evoliving/app/core/theming/text_theme_extension.dart';
 import 'package:evoliving/app/features/home/domain/model/devices.dart';
 import 'package:evoliving/app/features/home/presentation/widgets/device_card.dart';
 import 'package:evoliving/app/features/home/presentation/widgets/welcome_header.dart';
-import 'package:evoliving/app/widgets/spacing.dart';
 import 'package:animate_do/animate_do.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               /// HEADER
               SizedBox(
-                height: 350.h,
+                height: 335.h,
                 child: Stack(
                   alignment: Alignment.topCenter,
                   clipBehavior: Clip.none,
@@ -67,56 +67,63 @@ class HomeScreen extends StatelessWidget {
                     ),
 
                     /// TOP CARDS
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SizedBox(
-                        height: 80.h,
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          itemBuilder: (context, index) => BounceInUp(
-                            duration:
-                                Duration(milliseconds: 700 + (index * 100)),
-                            child: Container(
-                              height: 80.h,
-                              width: 190.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.r),
-                                color: context.colorsX.secondary,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 54.h,
-                                    width: 54.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16.r),
-                                      color: context.colorsX.background,
-                                    ),
-                                    child: Assets.svgs.vector.svg(),
-                                  ),
-                                  horizontalSpace(10),
-                                  Text(
-                                    'All Devices',
-                                    style: context.textThemeX.medium,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          separatorBuilder: (context, index) =>
-                              horizontalSpace(15),
-                        ),
-                      ),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.bottomCenter,
+                    //   child: SizedBox(
+                    //     height: 80.h,
+                    //     child: ListView.separated(
+                    //       shrinkWrap: true,
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemCount: 5,
+                    //       padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    //       itemBuilder: (context, index) => BounceInUp(
+                    //         duration:
+                    //             Duration(milliseconds: 700 + (index * 100)),
+                    //         child: Container(
+                    //           height: 80.h,
+                    //           width: 190.w,
+                    //           decoration: BoxDecoration(
+                    //             borderRadius: BorderRadius.circular(20.r),
+                    //             color: context.colorsX.secondary,
+                    //           ),
+                    //           child: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: [
+                    //               Container(
+                    //                 height: 54.h,
+                    //                 width: 54.w,
+                    //                 decoration: BoxDecoration(
+                    //                   borderRadius: BorderRadius.circular(16.r),
+                    //                   color: context.colorsX.background,
+                    //                 ),
+                    //                 child: Assets.svgs.vector.svg(),
+                    //               ),
+                    //               horizontalSpace(10),
+                    //               Text(
+                    //                 'All Devices',
+                    //                 style: context.textThemeX.medium,
+                    //               )
+                    //             ],
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       separatorBuilder: (context, index) =>
+                    //           horizontalSpace(15),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
-
-              /// GRID
+              Center(
+                child: Text(
+                  'All Devices',
+                  style: context.textThemeX.medium.bold.copyWith(
+                    color: context.colorsX.secondary,
+                  ),
+                ),
+              ),
+              // GRID
               Expanded(
                 child: GridView.builder(
                   physics: const BouncingScrollPhysics(),

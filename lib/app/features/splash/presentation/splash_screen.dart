@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart' show BlocListener;
 import 'package:go_router/go_router.dart';
 import 'package:evoliving/app/core/assets_gen/assets.gen.dart';
 import 'package:evoliving/app/core/constants/app_colors.dart';
-import 'package:evoliving/app/core/theming/app_colors_extension.dart';
 import 'package:evoliving/app/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:evoliving/app/features/splash/presentation/bloc/splash_bloc.dart';
 

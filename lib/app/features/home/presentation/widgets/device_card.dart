@@ -37,9 +37,9 @@ class DeviceCard extends StatelessWidget {
                 Expanded(
                   child: Image.asset(imagePath, height: 70.w),
                 ),
-                if (isLoading)
-                  const CircularProgressIndicator()
-                else
+                // if (isLoading)
+                //   const CircularProgressIndicator()
+                //else
                   Transform.rotate(
                     angle: 3.14 / 2,
                     child: Switch(
